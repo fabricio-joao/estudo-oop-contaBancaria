@@ -24,4 +24,14 @@ public class ContaCorrente extends Conta {
             System.out.println("\nServiço indisponivel");
         }
     }
+
+    @Override
+    public void depositar(double valor) {
+        this.setSaldo(this.getSaldo() + valor);
+    }
+
+    @Override
+    public void sacar(double valor) {
+        this.setSaldo(this.getSaldo() - valor);
+    }
 }

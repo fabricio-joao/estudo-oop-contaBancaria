@@ -28,14 +28,18 @@ public class ContaPoupanca extends Conta{
         this.data = data;
     }
 
-    public double atualizaSaldo(){
+    public void atualizaSaldo(){
         LocalDate dataHoje = LocalDate.now();
         double taxa = (this.getSaldo() * getTaxaJuros())/100;
-        double a = 0;
         if(dataHoje.isBefore(this.getData())){
-            a = this.getSaldo() + taxa;
+            this.setSaldo(this.getSaldo() + taxa);
         }
-        return a;
+
+    }
+
+    @Override
+    public void depositar(double valor) {
+
     }
 
     public void sacar(double valor) {

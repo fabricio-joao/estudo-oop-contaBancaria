@@ -1,6 +1,6 @@
 package entidades;
 
-public class Conta {
+public abstract class Conta {
     private String titular;
     private int numConta;
     private String agencia;
@@ -64,22 +64,8 @@ public class Conta {
         this.saldo = saldo;
     }
 
-    public void depositar(double valor) {
-        this.saldo += valor;
-    }
+    public abstract void depositar(double valor);
 
-    public void sacar(double valor) {
-        this.saldo -= valor;
-    }
+    public abstract void sacar(double valor);
 
-    @Override
-    public String toString() {
-        String info = "\nTitular da conta: " + this.getTitular();
-               info += "\nNúmero conta: " + this.getNumConta();
-               info += "\nAgencia: " + this.getAgencia();
-               //info += "\nSaldo: " + this.getSaldo();
-               info += "\nSaldo Poupança: " + this.getCp().getSaldo();
-               info += "\nSaldo ContaCorrentr: " + this.getCc().getSaldo();
-        return info;
-    }
 }
