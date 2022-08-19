@@ -2,36 +2,60 @@ package entidades;
 
 public class ContaCorrente extends Conta {
 
-    private double emprestimo;
+    private double LimiteEmprestimo;
+    private Cliente cliente;
 
-    public ContaCorrente(String titular, int numConta, String agencia, double saldo, double emprestimo) {
-        super(titular, numConta, agencia, saldo);
-        this.emprestimo = emprestimo;
+    public ContaCorrente(String agencia, double saldo, double limiteEmprestimo) {
+        super(agencia, saldo);
+        LimiteEmprestimo = limiteEmprestimo;
     }
 
-    public double getEmprestimo() {
-        return emprestimo;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setEmprestimo(double emprestimo) {
-        this.emprestimo = emprestimo;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public double getLimiteEmprestimo() {
+        return LimiteEmprestimo;
+    }
+
+    public void setLimiteEmprestimo(double limiteEmprestimo) {
+        LimiteEmprestimo = limiteEmprestimo;
     }
 
     public void emprestimoLimite(double valor){
-        if(valor < this.getEmprestimo()){
-            this.setSaldo((this.getSaldo() + valor) - 10);
+        if(valor < this.getLimiteEmprestimo()){
+            this.setSaldo((this.getSaldo() + valor));
         } else {
-            System.out.println("\nServiço indisponivel");
+            System.out.println("\nServiço indisponivel ContaCorrente emprestimo limite()");
         }
     }
 
     @Override
     public void depositar(double valor) {
-        this.setSaldo(this.getSaldo() + valor);
+        if(valor < 0){
+            System.out.println("Operação indisponivel Conta Corrente depositar()");
+        } else {
+            this.setSaldo(this.getSaldo() + valor);
+        }
     }
 
     @Override
     public void sacar(double valor) {
-        this.setSaldo(this.getSaldo() - valor);
+        if(valor < 0 || valor > this.getSaldo()){
+            System.out.println("Operação indisponivel Conta Corrente sacar()");
+        } else {
+            this.setSaldo(this.getSaldo() - valor);
+        }
+    }
+
+    public String toString() {
+        String info = "Titular: " + this.getCliente().getTitular();
+        info += "\nAgencia: " + this.getAgencia();
+        info += "\nSaldo : " + this.getSaldo();
+        return info;
     }
 }

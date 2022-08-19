@@ -1,17 +1,14 @@
 package entidades;
 
 public abstract class Conta {
-    private String titular;
-    private int numConta;
+
     private String agencia;
     private double saldo;
 
     private ContaPoupanca cp;
     private ContaCorrente cc;
 
-    public Conta(String titular, int numConta, String agencia, double saldo) {
-        this.titular = titular;
-        this.numConta = numConta;
+    public Conta( String agencia, double saldo) {
         this.agencia = agencia;
         this.saldo = saldo;
     }
@@ -30,22 +27,6 @@ public abstract class Conta {
 
     public void setCp(ContaPoupanca cp) {
         this.cp = cp;
-    }
-
-    public String getTitular() {
-        return titular;
-    }
-
-    public void setTitular(String titular) {
-        this.titular = titular;
-    }
-
-    public int getNumConta() {
-        return numConta;
-    }
-
-    public void setNumConta(int numConta) {
-        this.numConta = numConta;
     }
 
     public String getAgencia() {

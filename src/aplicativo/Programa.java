@@ -1,9 +1,6 @@
 package aplicativo;
 
-import entidades.Conta;
-import entidades.ContaCorrente;
-import entidades.ContaPoupanca;
-import entidades.Etiqueta;
+import entidades.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,35 +11,49 @@ public class Programa {
 
         Scanner scan = new Scanner(System.in);
         DateTimeFormatter dataformatada =   DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        /*System.out.println("Sistema Bancário: ");
 
-        System.out.print("Entre com títular: ");
-        String nome = scan.nextLine();
+        Cliente c = new Cliente("334", 1000.0, "José Lopez", 994 );
 
-        System.out.print("Entre com número conta: ");
-        int numero = scan.nextInt();
-        scan.nextLine();
+        if(c.validacao(987)){
+            System.out.print("Opeação: 1- Conta Corrente; 2- Conta Popança: ");
+            int conta = scan.nextInt();
+            scan.nextLine();
+           switch (conta) {
+               case 1:
+                   System.out.println("Deseja fazer emprestimos: [S/N] ");
+                   String dado = scan.nextLine();
+                   if(dado.equalsIgnoreCase("s")){
+                       ContaCorrente cc = new ContaCorrente("667", c.getSaldo(), 1100);//Limite do emprestimo setado
+                       System.out.println("Entre com valor do emprestimo: ");
+                       double emprestimo = scan.nextDouble(); //valor do emprestimo
+                       cc.emprestimoLimite(emprestimo);
+                       cc.setCliente(c);
+                       System.out.println(cc);
 
-        System.out.print("Entre com Agência: ");
-        String ag = scan.nextLine();*/
+                   } else {
+                       ContaCorrente cc = new ContaCorrente("667", c.getSaldo(), 1100);
+                       cc.depositar(200);
+                       cc.sacar(50.0);
+                       cc.setCliente(c);
+                       System.out.println(cc);
+                   }
+                   break;
+               case 2:
+                   ContaCorrente cc = new ContaCorrente("667", c.getSaldo(), 1100);
+                   System.out.print("Entre com data: (dd/MM/yyyy): ");
+                   LocalDate data = LocalDate.parse(scan.next(), dataformatada);
+                   ContaPoupanca cp = new ContaPoupanca(cc.getAgencia(), cc.getSaldo(), 10, data);
+                   cp.atualizaSaldo();
+                   cp.setCliente(c);
+                   System.out.println(cp);
+                   break;
 
-
-
-        ContaCorrente cc = new ContaCorrente("Maria", 3411, "8752", 1000.0, 2000.0);
-        cc.depositar(200);
-        cc.sacar(50.0);
-        //cc.emprestimoLimite(1000);
-        //System.out.println("Conta corrente: " + cc);*/
-
-        System.out.println();
-        System.out.print("Entre com data: (dd/MM/yyyy): ");
-        LocalDate data = LocalDate.parse(scan.next(), dataformatada);
-       ContaPoupanca cp = new ContaPoupanca("João", 3411, "8752", cc.getSaldo(), 10, data);
-        cp.atualizaSaldo();
-        Etiqueta e = new Etiqueta("João", 3411, "8752", 1000.0);
-        e.setCp(cp);
-        e.setCc(cc);
-        System.out.println(e);
+               default:
+                   System.out.print("Opção incorreta ");
+            }
+            } else {
+            System.out.println("Senha incorreta");
+        }
         scan.close();
     }
 }
