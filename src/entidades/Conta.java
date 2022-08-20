@@ -1,5 +1,7 @@
 package entidades;
 
+import excecao.ExcecaoDominio;
+
 public abstract class Conta {
 
     private String agencia;
@@ -45,8 +47,8 @@ public abstract class Conta {
         this.saldo = saldo;
     }
 
-    public abstract void depositar(double valor);
+    public abstract void depositar(double valor) throws ExcecaoDominio;
 
-    public abstract void sacar(double valor);
+    public abstract void sacar(double valor) throws ExcecaoDominio;
 
 }

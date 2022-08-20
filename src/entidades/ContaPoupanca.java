@@ -1,5 +1,7 @@
 package entidades;
 
+import excecao.ExcecaoDominio;
+
 import java.time.LocalDate;
 public class ContaPoupanca extends Conta{
     private double taxaJuros;
@@ -44,11 +46,19 @@ public class ContaPoupanca extends Conta{
         }
     }
     @Override
-    public void depositar(double valor) {
-
+    public void depositar(double valor) throws ExcecaoDominio {
+        if(valor < 0){
+            throw new ExcecaoDominio("Operação indisponivel");
+        } else {
+            this.setSaldo(this.getSaldo() + valor);
+        }
     }
-    public void sacar(double valor) {
-        this.setSaldo(getSaldo() - 5);
+    public void sacar(double valor) throws ExcecaoDominio {
+        if(valor < 0 || valor > this.getSaldo()){
+            throw new ExcecaoDominio("Operação indisponivel");
+        } else {
+            this.setSaldo(this.getSaldo() - valor);
+        }
     }
 
     public String toString() {

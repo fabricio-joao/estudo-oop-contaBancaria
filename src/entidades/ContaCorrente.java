@@ -1,5 +1,7 @@
 package entidades;
 
+import excecao.ExcecaoDominio;
+
 public class ContaCorrente extends Conta {
 
     private double LimiteEmprestimo;
@@ -30,23 +32,23 @@ public class ContaCorrente extends Conta {
         if(valor < this.getLimiteEmprestimo()){
             this.setSaldo((this.getSaldo() + valor));
         } else {
-            System.out.println("\nServiço indisponivel ContaCorrente emprestimo limite()");
+            System.out.println("\nServiço indisponivel");
         }
     }
 
     @Override
-    public void depositar(double valor) {
+    public void depositar(double valor) throws ExcecaoDominio {
         if(valor < 0){
-            System.out.println("Operação indisponivel Conta Corrente depositar()");
+            throw new ExcecaoDominio("Operação indisponivel");
         } else {
             this.setSaldo(this.getSaldo() + valor);
         }
     }
 
     @Override
-    public void sacar(double valor) {
+    public void sacar(double valor) throws ExcecaoDominio {
         if(valor < 0 || valor > this.getSaldo()){
-            System.out.println("Operação indisponivel Conta Corrente sacar()");
+            throw new ExcecaoDominio("Operação indisponivel");
         } else {
             this.setSaldo(this.getSaldo() - valor);
         }
