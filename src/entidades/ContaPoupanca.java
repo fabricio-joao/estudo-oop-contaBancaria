@@ -6,20 +6,11 @@ import java.time.LocalDate;
 public class ContaPoupanca extends Conta{
     private double taxaJuros;
     private LocalDate data;
-    private Cliente cliente;
 
     public ContaPoupanca(String agencia, double saldo, double taxaJuros, LocalDate data) {
         super(agencia, saldo);
         this.taxaJuros = taxaJuros;
         this.data = data;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public double getTaxaJuros() {
@@ -38,34 +29,5 @@ public class ContaPoupanca extends Conta{
         this.data = data;
     }
 
-    public void atualizaSaldo(){
-        LocalDate dataHoje = LocalDate.now();
-        double taxa = (this.getSaldo() * getTaxaJuros())/100;
-        if(dataHoje.isBefore(this.getData())){
-            this.setSaldo(this.getSaldo() + taxa);
-        }
-    }
-    @Override
-    public void depositar(double valor) throws ExcecaoDominio {
-        if(valor < 0){
-            throw new ExcecaoDominio("Operação indisponivel");
-        } else {
-            this.setSaldo(this.getSaldo() + valor);
-        }
-    }
-    public void sacar(double valor) throws ExcecaoDominio {
-        if(valor < 0 || valor > this.getSaldo()){
-            throw new ExcecaoDominio("Operação indisponivel");
-        } else {
-            this.setSaldo(this.getSaldo() - valor);
-        }
-    }
-
-    public String toString() {
-        String info = "Titular: " + this.getCliente().getTitular();
-        info += "\nAgencia: " + this.getAgencia();
-        info += "\nSaldo : " + this.getSaldo();
-        return info;
-    }
 }
 
